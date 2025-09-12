@@ -4,48 +4,47 @@ import 'package:mutqin/core/constants/colors.dart';
 
 class AppTextStyles {
   // Headlines
-  static final TextStyle headline1 = TextStyle(
+  static TextStyle get headline1 => TextStyle(
     fontSize: 23.sp,
-    fontWeight: FontWeight.bold,
     color: AppColors.background,
-    fontFamily: 'Amiri', // replace with your font
+    fontFamily: 'Amiri',
+    package: null,
   );
 
-  static const TextStyle headline2 = TextStyle(
-    fontSize: 24,
+  static TextStyle get headline2 => TextStyle(
+    fontSize: 24.sp,
     fontWeight: FontWeight.w600,
     color: Colors.black,
-    fontFamily: 'Poppins',
+    fontFamily: 'Amiri',
   );
 
   // Body
-  static const TextStyle body1 = TextStyle(
-    fontSize: 16,
-    fontWeight: FontWeight.normal,
-    color: Colors.black87,
-    fontFamily: 'Poppins',
+  static TextStyle get body1 => TextStyle(
+    fontSize: 20.sp,
+    color: AppColors.background,
+    fontFamily: 'Amiri',
   );
 
-  static const TextStyle body2 = TextStyle(
-    fontSize: 14,
+  static TextStyle get body2 => TextStyle(
+    fontSize: 14.sp,
     fontWeight: FontWeight.normal,
     color: Colors.black54,
-    fontFamily: 'Poppins',
+    fontFamily: 'Amiri',
   );
 
   // Captions
-  static const TextStyle caption = TextStyle(
-    fontSize: 12,
+  static TextStyle get caption => TextStyle(
+    fontSize: 12.sp,
     fontWeight: FontWeight.w400,
     color: Colors.grey,
-    fontFamily: 'Poppins',
+    fontFamily: 'Amiri',
   );
 
   // Buttons
-  static const TextStyle button = TextStyle(
-    fontSize: 16,
+  static TextStyle get button => TextStyle(
+    fontSize: 20.sp,
     fontWeight: FontWeight.w600,
-    color: Colors.white,
-    fontFamily: 'Poppins',
+    color: AppColors.background,
+    fontFamily: 'Amiri',
   );
 }

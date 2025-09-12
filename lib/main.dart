@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'core/router/app_router.dart';
 import 'core/router/route_names.dart';
 
@@ -11,10 +12,17 @@ class MutqinApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Mutqin',
-      initialRoute: RouteNames.login,
-      onGenerateRoute: AppRouter.generateRoute,
+    return ScreenUtilInit(
+      designSize: const Size(412, 912), // iPhone X size (adjust as needed)
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return MaterialApp(
+          title: 'Mutqin',
+          initialRoute: RouteNames.login,
+          onGenerateRoute: AppRouter.generateRoute,
+        );
+      },
     );
   }
 }
