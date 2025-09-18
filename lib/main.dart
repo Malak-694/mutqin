@@ -13,13 +13,13 @@ class MutqinApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(412, 912), // iPhone X size (adjust as needed)
+      designSize: const Size(412, 917), // iPhone X size (adjust as needed)
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
         return MaterialApp(
           title: 'Mutqin',
-          initialRoute: RouteNames.login,
+          initialRoute: RouteNames.profile,
           onGenerateRoute: AppRouter.generateRoute,
         );
       },

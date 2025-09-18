@@ -14,7 +14,7 @@ class AppTextStyles {
   static TextStyle get headline2 => TextStyle(
     fontSize: 24.sp,
     fontWeight: FontWeight.w600,
-    color: Colors.black,
+    color: AppColors.darkprimery,
     fontFamily: 'Amiri',
   );
 
@@ -28,7 +28,7 @@ class AppTextStyles {
   static TextStyle get body2 => TextStyle(
     fontSize: 14.sp,
     fontWeight: FontWeight.normal,
-    color: Colors.black54,
+    color: AppColors.darkprimery,
     fontFamily: 'Amiri',
   );
 

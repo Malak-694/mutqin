@@ -106,7 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         SizedBox(height: 80.h),
 
                         Text(
-                          AppStrings.registerGoogle,
+                          AppStrings.loginGoogle,
                           style: AppTextStyles.body1,
                         ),
                         SizedBox(height: 30.h),
@@ -146,7 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               onTap: () {
                                 Navigator.pushReplacementNamed(
                                   context,
-                                  RouteNames.login,
+                                  RouteNames.register,
                                 );
                               },
                               child: Text(

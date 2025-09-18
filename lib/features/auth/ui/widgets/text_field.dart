@@ -8,6 +8,8 @@ class CustomTextField extends StatefulWidget {
   final String label;
   final bool isPassword;
   final String? Function(String?)? validator;
+  final bool editable;
+  final String? value;
 
   const CustomTextField({
     super.key,
@@ -15,6 +17,8 @@ class CustomTextField extends StatefulWidget {
     required this.label,
     this.isPassword = false,
     this.validator,
+    this.editable = true,
+    this.value,
   });
 
   @override
@@ -23,6 +27,14 @@ class CustomTextField extends StatefulWidget {
 
 class _CustomTextFieldState extends State<CustomTextField> {
   bool _obscureText = true; // default hide password
+  @override
+  void initState() {
+    super.initState();
+    // If value is passed and controller is empty, set it as default text
+    if (widget.value != null && widget.controller.text.isEmpty) {
+      widget.controller.text = widget.value!;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,10 +49,18 @@ class _CustomTextFieldState extends State<CustomTextField> {
           height: 37.h,
           width: 350.w,
           child: TextFormField(
+            enabled: widget.editable,
+
             controller: widget.controller,
             obscureText: widget.isPassword ? _obscureText : false,
             textAlign: TextAlign.end,
+            style: AppTextStyles.body1,
             decoration: InputDecoration(
+              isDense: true, // reduces default vertical padding
+              contentPadding: EdgeInsets.symmetric(
+                vertical: 8.h,
+                horizontal: 12.w,
+              ),
               prefixIcon: widget.isPassword
                   ? IconButton(
                       icon: Icon(

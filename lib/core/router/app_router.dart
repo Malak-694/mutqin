@@ -5,6 +5,7 @@ import 'package:mutqin/core/router/route_names.dart';
 import 'package:mutqin/features/auth/logic/cubit/auth_cubit.dart';
 import 'package:mutqin/features/auth/ui/screens/login_screen.dart';
 import 'package:mutqin/features/auth/ui/screens/signup_screen.dart';
+import 'package:mutqin/features/profile/ui/profile.dart';
 
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -21,7 +22,10 @@ class AppRouter {
           builder: (_) =>
               BlocProvider(create: (_) => AuthCubit(), child: SignUpScreen()),
         );
-
+      case RouteNames.profile:
+        return MaterialPageRoute(builder: (_)=> ProfileScreen());
+        case RouteNames.norification:
+        return MaterialPageRoute(builder: (_)=> ProfileScreen());
       default:
         return MaterialPageRoute(
           builder: (_) => const Scaffold(
