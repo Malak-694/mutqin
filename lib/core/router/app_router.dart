@@ -5,6 +5,7 @@ import 'package:mutqin/core/router/route_names.dart';
 import 'package:mutqin/features/auth/logic/cubit/auth_cubit.dart';
 import 'package:mutqin/features/auth/ui/screens/login_screen.dart';
 import 'package:mutqin/features/auth/ui/screens/signup_screen.dart';
+import 'package:mutqin/features/notification/ui/notification_screen.dart';
 import 'package:mutqin/features/profile/ui/profile.dart';
 
 class AppRouter {
@@ -12,10 +13,8 @@ class AppRouter {
     switch (settings.name) {
       case RouteNames.login:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) => AuthCubit(),
-            child:LoginScreen(),
-          ),
+          builder: (_) =>
+              BlocProvider(create: (_) => AuthCubit(), child: LoginScreen()),
         );
       case RouteNames.register:
         return MaterialPageRoute(
@@ -23,9 +22,9 @@ class AppRouter {
               BlocProvider(create: (_) => AuthCubit(), child: SignUpScreen()),
         );
       case RouteNames.profile:
-        return MaterialPageRoute(builder: (_)=> ProfileScreen());
-        case RouteNames.norification:
-        return MaterialPageRoute(builder: (_)=> ProfileScreen());
+        return MaterialPageRoute(builder: (_) => ProfileScreen());
+      case RouteNames.notification:
+        return MaterialPageRoute(builder: (_) => NotificationScreen());
       default:
         return MaterialPageRoute(
           builder: (_) => const Scaffold(

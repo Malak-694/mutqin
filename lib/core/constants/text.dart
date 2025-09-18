@@ -13,7 +13,6 @@ class AppTextStyles {
 
   static TextStyle get headline2 => TextStyle(
     fontSize: 24.sp,
-    fontWeight: FontWeight.w600,
     color: AppColors.darkprimery,
     fontFamily: 'Amiri',
   );

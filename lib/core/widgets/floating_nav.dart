@@ -15,10 +15,9 @@ class FloatingNavBar extends StatelessWidget {
 
   // Define role-based nav items (icons + routes)
   Map<String, List<Map<String, dynamic>>> get roleNavItems => {
-    
     "student": [
       {"icon": Icons.home, "route": RouteNames.login},
-      {"icon": Icons.notifications, "route": RouteNames.norification},
+      {"icon": Icons.notifications, "route": RouteNames.notification},
       {"icon": Icons.bar_chart, "route": RouteNames.login},
       {"icon": Icons.person, "route": RouteNames.profile},
     ],
@@ -45,6 +44,15 @@ class FloatingNavBar extends StatelessWidget {
       child: Container(
         height: 63.h,
         width: 380.w,
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 10,
+              offset: Offset(0, 4),
+            ),
+          ],
+        ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(28.r),
 
