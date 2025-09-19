@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mutqin/core/constants/colors.dart';
 import 'package:mutqin/core/constants/text.dart';
 import 'package:mutqin/features/auth/logic/cubit/auth_cubit.dart';
-import 'package:mutqin/features/auth/ui/widgets/select_user.dart';
 
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/constants/string.dart';

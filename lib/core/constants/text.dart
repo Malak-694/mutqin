@@ -25,7 +25,7 @@ class AppTextStyles {
   );
 
   static TextStyle get body2 => TextStyle(
-    fontSize: 14.sp,
+    fontSize: 15.sp,
     fontWeight: FontWeight.normal,
     color: AppColors.darkprimery,
     fontFamily: 'Amiri',

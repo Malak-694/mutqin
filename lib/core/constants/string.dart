@@ -18,4 +18,8 @@ class AppStrings {
   static const role = "الدور";
   static const confirmChange = "تأكيد التعديلات";
   static const removeProfile = "مسح الحساب";
+  static const searchSheikh = "ابحث عن شيخ";
+  static const cancel = "الغاء";
+  static const enter = "دخول ";
+  static const details = "تفاصيل";
 }

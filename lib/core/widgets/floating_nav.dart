@@ -16,9 +16,8 @@ class FloatingNavBar extends StatelessWidget {
   // Define role-based nav items (icons + routes)
   Map<String, List<Map<String, dynamic>>> get roleNavItems => {
     "student": [
-      {"icon": Icons.home, "route": RouteNames.login},
+      {"icon": Icons.home, "route": RouteNames.studentHome},
       {"icon": Icons.notifications, "route": RouteNames.notification},
-      {"icon": Icons.bar_chart, "route": RouteNames.login},
       {"icon": Icons.person, "route": RouteNames.profile},
     ],
     "teacher": [

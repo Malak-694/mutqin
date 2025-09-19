@@ -7,6 +7,10 @@ import 'package:mutqin/features/auth/ui/screens/login_screen.dart';
 import 'package:mutqin/features/auth/ui/screens/signup_screen.dart';
 import 'package:mutqin/features/notification/ui/notification_screen.dart';
 import 'package:mutqin/features/profile/ui/profile.dart';
+import 'package:mutqin/features/sheikh_features/ui/sheikh_home_screen.dart';
+import 'package:mutqin/features/student_features.dart/ui/sheikh_search_screen.dart';
+
+import '../../features/student_features.dart/ui/student_homeScreen.dart';
 
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -25,6 +29,12 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => ProfileScreen());
       case RouteNames.notification:
         return MaterialPageRoute(builder: (_) => NotificationScreen());
+      case RouteNames.studentHome:
+        return MaterialPageRoute(builder: (_) => StudentHomescreen());
+      case RouteNames.sheikhSearchResults:
+        return MaterialPageRoute(builder: (_) => SheikhSearchResults());
+      case RouteNames.sheikhHome:
+        return MaterialPageRoute(builder: (_) => SheikhHomeScreen());
       default:
         return MaterialPageRoute(
           builder: (_) => const Scaffold(
