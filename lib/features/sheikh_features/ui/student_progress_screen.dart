@@ -7,6 +7,7 @@ import 'package:mutqin/core/widgets/app_text_field.dart' show AppTextField;
 
 import '../../../core/constants/colors.dart';
 import '../../../core/constants/text.dart';
+import '../../../core/helper/shared_pref_helper.dart';
 import '../../../core/widgets/floating_nav.dart';
 
 class StudentProgress extends StatefulWidget {
@@ -16,6 +17,13 @@ class StudentProgress extends StatefulWidget {
 
 class _StudentProgressState extends State<StudentProgress> {
   @override
+  void tryed() {
+    SharedPrefHelper.setData("is_logged_in", true);
+    SharedPrefHelper.getData("is_logged_in").then((value) {
+      print("value is $value");
+    });
+  }
+
   Widget build(BuildContext context) {
     Map<String, String> person = {
       "name": "احمد محمد حسن علي",
@@ -43,7 +51,7 @@ class _StudentProgressState extends State<StudentProgress> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding:  EdgeInsets.all(16.r),
+          padding: EdgeInsets.all(16.r),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -65,7 +73,7 @@ class _StudentProgressState extends State<StudentProgress> {
               ProgressWidget(progress: person),
 
               SizedBox(height: 20.h),
-              SheikhAddTrophy(intialTrophies: trophies),
+              SheikhAddTrophy(intialTrophies: trophies, onPressed: tryed),
               SizedBox(height: 20.h),
 
               AppTextField(

@@ -8,8 +8,9 @@ import '../../../../core/constants/colors.dart';
 
 class SheikhAddTrophy extends StatefulWidget {
   final List<Map<String, String>> intialTrophies;
+  final  VoidCallback? onPressed;
 
-  const SheikhAddTrophy({super.key, required this.intialTrophies});
+  const SheikhAddTrophy({super.key, required this.intialTrophies, this.onPressed});
 
   @override
   State<SheikhAddTrophy> createState() => _SheikhAddTrophyState();
@@ -18,7 +19,6 @@ class SheikhAddTrophy extends StatefulWidget {
 class _SheikhAddTrophyState extends State<SheikhAddTrophy> {
   late List<Map<String, String>> trophies;
   final GlobalKey _addKey = GlobalKey();
-
   @override
   void initState() {
     super.initState();
@@ -93,6 +93,7 @@ class _SheikhAddTrophyState extends State<SheikhAddTrophy> {
       }
       setState(() {
         trophies.add(result);
+        widget.onPressed!();
       });
     }
   }
