@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mutqin/features/student_features.dart/ui/widgets/progress_widget.dart';
-import 'package:mutqin/core/widgets/session_card.dart';
+import 'package:mutqin/core/widgets/progress_widget.dart';
 import 'package:mutqin/features/student_features.dart/ui/widgets/sheikh_search.dart';
-import 'package:mutqin/features/student_features.dart/ui/widgets/student_trophies.dart';
+import 'package:mutqin/core/widgets/student_trophies.dart';
 
 import '../../../core/constants/colors.dart';
 import '../../../core/constants/text.dart';
@@ -103,7 +102,7 @@ class _StudentHomescreenState extends State<StudentHomescreen> {
         backgroundColor: AppColors.background,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.r),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [

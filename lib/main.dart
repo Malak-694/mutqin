@@ -19,7 +19,7 @@ class MutqinApp extends StatelessWidget {
       builder: (context, child) {
         return MaterialApp(
           title: 'Mutqin',
-          initialRoute: RouteNames.sheikhHome,
+          initialRoute: RouteNames.studentProgress,
           onGenerateRoute: AppRouter.generateRoute,
         );
       },

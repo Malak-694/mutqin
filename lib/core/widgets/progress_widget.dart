@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mutqin/core/constants/text.dart';
 
-import '../../../../core/constants/colors.dart';
+import '../constants/colors.dart';
 
 class ProgressWidget extends StatelessWidget {
   final Map<String, String> progress;
@@ -22,12 +22,12 @@ class ProgressWidget extends StatelessWidget {
               ProgressCard(
                 type: "الجلسات",
                 icon: Icons.laptop,
-                describtion: progress.values.elementAt(0),
+                describtion: progress["sessions"]!,
               ),
               ProgressCard(
-                type: "عدد الصفح",
-                icon: Icons.book,
-                describtion: progress.values.elementAt(1),
+                type: "النقاط",
+                icon: Icons.star,
+                describtion: progress["points"]!,
               ),
             ],
           ),
@@ -36,14 +36,14 @@ class ProgressWidget extends StatelessWidget {
 
             children: [
               ProgressCard(
-                type: "النقاط",
-                icon: Icons.star,
-                describtion: progress.values.elementAt(2),
-              ),
-              ProgressCard(
                 type: "المدة",
                 icon: Icons.alarm,
-                describtion: progress.values.elementAt(3),
+                describtion: progress["duration"]!,
+              ),
+              ProgressCard(
+                type: "عدد الصفح",
+                icon: Icons.book,
+                describtion: progress["pageLearned"]!,
               ),
             ],
           ),
@@ -70,7 +70,7 @@ class ProgressCard extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(5.dg),
       height: 80.h,
-      width: 160,
+      width: 160.w,
       decoration: BoxDecoration(
         color: AppColors.background,
         borderRadius: BorderRadius.circular(11.r),

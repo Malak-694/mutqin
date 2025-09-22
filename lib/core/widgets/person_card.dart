@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -7,11 +6,7 @@ import '../constants/string.dart';
 import '../constants/text.dart';
 
 class PersonCard extends StatelessWidget {
-  const PersonCard({
-    super.key,
-    required this.onPressed,
-    required this.person,
-  });
+  const PersonCard({super.key, required this.onPressed, required this.person});
 
   final VoidCallback onPressed;
   final Map<String, String> person;
@@ -39,15 +34,32 @@ class PersonCard extends StatelessWidget {
               ),
               side: BorderSide(color: AppColors.primery, width: 1.w),
             ),
-            child: Text(
-              AppStrings.details,
-              style: AppTextStyles.headline2,
-            ),
+            child: Text(AppStrings.details, style: AppTextStyles.headline2),
           ),
-          Text(
-            person["name"]!,
-            style: AppTextStyles.headline1.copyWith(fontSize: 30.sp),
-            textAlign: TextAlign.end,
+          Column(
+            children: [
+              Text(
+                person["name"]!,
+                style: AppTextStyles.headline1.copyWith(fontSize: 30.sp),
+                textAlign: TextAlign.end,
+              ),
+              if (person["date"] != null)
+                Text(
+                  person["date"]!,
+                  style: AppTextStyles.headline1
+                      .copyWith(fontSize: 20.sp)
+                      .copyWith(color: AppColors.darkprimery),
+                  textAlign: TextAlign.end,
+                ),
+              if (person["detail"] != null)
+                Text(
+                  person["detail"]!,
+                  style: AppTextStyles.headline1
+                      .copyWith(fontSize: 20.sp)
+                      .copyWith(color: AppColors.darkprimery),
+                  textAlign: TextAlign.end,
+                ),
+            ],
           ),
         ],
       ),

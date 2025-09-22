@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mutqin/core/widgets/persons_list.dart';
 
 import '../../../core/constants/colors.dart';
 import '../../../core/constants/text.dart';
@@ -69,6 +70,20 @@ class SheikhHomeScreen extends StatelessWidget {
       "sheikhname": "علي حسن علي", // Changed from "sheikhId" to "sheikhname"
     },
   ];
+  List<Map<String, String>> persons = [
+    {"name": "ملك احمد محمد", "detail": "درس 10 طلاب"},
+    {"name": "ملك احمد محمد", "detail": "درس 10 طلاب"},
+    {"name": "ملك احمد محمد", "detail": "درس 10 طلاب"},
+    {"name": "ملك احمد محمد", "detail": "درس 10 طلاب"},
+    {"name": "ملك احمد محمد", "detail": "درس 10 طلاب"},
+    {"name": "ملك احمد محمد", "detail": "درس 10 طلاب"},
+    {"name": "ملك احمد محمد", "detail": "درس 10 طلاب"},
+    {"name": "ملك احمد محمد", "detail": "درس 10 طلاب"},
+    {"name": "ملك احمد محمد", "detail": "درس 10 طلاب"},
+  ];
+  final VoidCallback onPressed = () {};
+
+  SheikhHomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -80,12 +95,18 @@ class SheikhHomeScreen extends StatelessWidget {
         backgroundColor: AppColors.background,
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.dg),
-        child: Column(children: [SessionList(sessions: sessions)]),
+        padding: EdgeInsets.all(16.r),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            SessionList(sessions: sessions, height: 355),
+            PersonsList(persons: persons, onPressed: onPressed, height: 355),
+          ],
+        ),
       ),
       bottomNavigationBar: FloatingNavBar(
         userRole: "teacher", // Example role
-        selectedIndex: 1, // Profile index
+        selectedIndex: 0, // Profile index
       ),
     );
   }

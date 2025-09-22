@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mutqin/core/constants/colors.dart';
 import 'package:mutqin/core/router/route_names.dart';
 
@@ -21,10 +22,10 @@ class FloatingNavBar extends StatelessWidget {
       {"icon": Icons.person, "route": RouteNames.profile},
     ],
     "teacher": [
-      {"icon": Icons.home, "route": RouteNames.login},
-      {"icon": Icons.notifications, "route": RouteNames.login},
-      {"icon": Icons.school, "route": RouteNames.login},
-      {"icon": Icons.person, "route": RouteNames.login},
+      {"icon": Icons.home, "route": RouteNames.sheikhHome},
+      {"icon": Icons.notifications, "route": RouteNames.notification},
+      {"icon": FontAwesomeIcons.trophy, "route": RouteNames.trophy},
+      {"icon": Icons.person, "route": RouteNames.profile},
     ],
     "admin": [
       {"icon": Icons.home, "route": RouteNames.login},

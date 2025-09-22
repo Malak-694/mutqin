@@ -5,9 +5,10 @@ import 'session_card.dart';
 import '../constants/colors.dart';
 
 class SessionList extends StatelessWidget {
-  const SessionList({super.key, required this.sessions});
+  const SessionList({super.key, required this.sessions, this.height = 270});
 
   final List<Map<String, String>> sessions;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class SessionList extends StatelessWidget {
         ),
         SizedBox(height: 10.h),
         Container(
-          height: 270.h,
+          height: height.h,
           padding: EdgeInsets.all(15.r),
           decoration: BoxDecoration(
             color: AppColors.background,
