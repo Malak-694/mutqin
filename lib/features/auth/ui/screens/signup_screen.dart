@@ -9,6 +9,7 @@ import 'package:mutqin/features/auth/ui/widgets/select_user.dart';
 import '../../../../core/constants/string.dart';
 import '../../../../core/router/route_names.dart';
 import '../../../../core/utils/validator.dart';
+import '../../logic/cubit/auth_state.dart';
 import '../widgets/sign_button.dart';
 import '../widgets/sign_google.dart';
 import '../widgets/text_field.dart';
@@ -21,8 +22,11 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  String _selectedUserType = 'طالب/ة';
+  String _selectedUserType = 'STUDENT'; // Default user type;
   final _formKey = GlobalKey<FormState>(); // Add form key
+  TextEditingController ageController = TextEditingController();
+  TextEditingController usernameController = TextEditingController();
+
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -40,12 +44,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   void _handleSignUp() {
     if (_formKey.currentState?.validate() ?? false) {
-      // Call the register method from AuthCubit
-      context.read<AuthCubit>().register(
+      context.read<AuthCubit>().signUp(
+        usernameController.text.trim(),
         emailController.text.trim(),
         passwordController.text,
         phoneController.text.trim(),
-        confirmPasswordController.text,
+        int.tryParse(ageController.text.trim()) ?? 0,
         _selectedUserType,
       );
     }
@@ -57,23 +61,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
       backgroundColor: AppColors.background,
       body: BlocListener<AuthCubit, AuthState>(
         listener: (context, state) {
-          if (state is AuthSuccess) {
-            ScaffoldMessenger.of(context).showSnackBar(
+          state.maybeWhen(
+            success: (data) {
+              Navigator.pushReplacementNamed(context, RouteNames.login);
+            },
+            fail: (message) => ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(state.message, style: AppTextStyles.headline1),
-                backgroundColor: Colors.green,
-              ),
-            );
-            // Navigate to next screen on success
-            // Navigator.pushReplacementNamed(context, '/home');
-          } else if (state is AuthFailure) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.error, style: AppTextStyles.headline1),
+                content: Text(message, style: AppTextStyles.headline1),
                 backgroundColor: Colors.red,
               ),
-            );
-          }
+            ),
+            orElse: () {},
+          );
         },
         child: SingleChildScrollView(
           padding: EdgeInsets.only(top: 100.h),
@@ -107,7 +106,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        SizedBox(height: 10.h),
+                        SizedBox(height: 15.h),
                         UserTypeSelector(
                           selectedUserType: _selectedUserType,
                           onUserTypeChanged: (newType) {
@@ -116,14 +115,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             });
                           },
                         ),
-                        Text(
-                          AppStrings.registerGoogle,
-                          style: AppTextStyles.body1,
-                        ),
-                        SignGoogleButton(),
-                        Text(
-                          AppStrings.registerEmail,
-                          style: AppTextStyles.body1,
+                        SizedBox(height: 5.h),
+
+                        CustomTextField(
+                          controller: usernameController,
+                          label: AppStrings.username,
                         ),
                         CustomTextField(
                           controller: emailController,
@@ -134,6 +130,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           controller: phoneController,
                           label: AppStrings.phone,
                           validator: Validators.validatePhone,
+                        ),
+                        CustomTextField(
+                          controller: ageController,
+                          label: AppStrings.age,
                         ),
                         CustomTextField(
                           controller: passwordController,
@@ -156,7 +156,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             return SignButton(
                               text: AppStrings.registerButton,
                               onPressed: _handleSignUp,
-                              isLoading: state is AuthLoading,
+                              isLoading: state is Loading,
                             );
                           },
                         ),

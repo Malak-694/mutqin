@@ -1,35 +1,98 @@
-import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mutqin/core/helper/shared_key.dart';
 
-import 'package:meta/meta.dart';
+import 'package:mutqin/features/auth/data/models/sign_up_model.dart';
+import 'package:mutqin/features/auth/data/repo/auth_repo.dart';
+import 'package:mutqin/features/auth/logic/cubit/auth_state.dart';
 
-part 'auth_state.dart';
+import '../../../../core/helper/shared_pref_helper.dart';
+import '../../../../core/networking/api_result.dart';
+import '../../data/models/login_model.dart';
+import '../../data/models/user_model.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit() : super(AuthInitial());
-  Future<void> login(String email, String password) async {
-    emit(AuthLoading());
-    await Future.delayed(const Duration(seconds: 2)); // Simulate network delay
-    if (email == 'user@gmail.com' && password == 'password123') {
-      emit(AuthSuccess('تسجيل الدخول بنجاح'));
-    } else {
-      emit(AuthFailure('Invalid username or password'));
+  final AuthRepo repo;
+  AuthCubit(this.repo) : super(AuthState.initial());
+
+  Future<void> signUp(
+    String username,
+    String email,
+    String password,
+    String phone,
+    int age,
+    String role,
+  ) async {
+    emit(const AuthState.loading());
+    try {
+      final request = SignUpRequest(
+        username: username,
+        email: email,
+        password: password,
+        phone: phone,
+        age: age,
+        role: role,
+      );
+
+      final ApiResult<SignUpResponse> result = await repo.signUp(request);
+      result.when(
+        success: (SignUpResponse response) async {
+          emit(AuthState.success("${response.message} , You can now log in."));
+        },
+        failure: (error) {
+          emit(AuthState.fail("please try again later"));
+        },
+      );
+    } catch (e) {
+      emit(AuthState.fail("please try again later"));
     }
   }
 
-  Future<void> register(
-    String username,
-    String password,
-    String phone,
-    String confirmPassword,
-    String type,
-  ) async {
-    emit(AuthLoading());
-    await Future.delayed(const Duration(seconds: 2)); // Simulate network delay
-    if (username.isNotEmpty && password.isNotEmpty) {
-      emit(AuthSuccess('Registration Successful'));
-    } else {
-      emit(AuthFailure('Username and password cannot be empty'));
+  Future<void> logIn(String email, String password) async {
+    emit(const AuthState.loading());
+    try {
+      final request = LoginRequest(email: email, password: password);
+
+      final ApiResult<LoginResponse> result = await repo.logIn(request);
+      result.when(
+        success: (LoginResponse response) async {
+          final ApiResult<User> userResult = await repo.getUser(email);
+          userResult.when(
+            success: (User user) async {
+              await SharedPrefHelper.setData(
+                SharedPrefKey.id,
+                user.id.toString(),
+              );
+              await SharedPrefHelper.setData(
+                SharedPrefKey.role,
+                user.role,
+              );
+              emit(AuthState.success(user.role));
+            },
+            failure: (error) {
+              emit(
+                AuthState.fail(
+                  "بالرجاء المحاولة لاحقا وتأكد من الايميل وكلمة المرور ",
+                ),
+              );
+            },
+          );
+          await SharedPrefHelper.setSecureData(
+            SharedPrefKey.token,
+            response.token,
+          );
+        },
+        failure: (error) {
+          emit(
+            AuthState.fail(
+              "بالرجاء المحاولة لاحقا وتأكد من الايميل وكلمة المرور ",
+            ),
+          );
+        },
+      );
+    } catch (e) {
+      emit(
+        AuthState.fail("بالرجاء المحاولة لاحقا وتأكد من الايميل وكلمة المرور "),
+      );
     }
   }
 }

@@ -14,14 +14,13 @@ class FloatingNavBar extends StatelessWidget {
     required this.selectedIndex,
   });
 
-  // Define role-based nav items (icons + routes)
   Map<String, List<Map<String, dynamic>>> get roleNavItems => {
-    "student": [
+    "STUDENT": [
       {"icon": Icons.home, "route": RouteNames.studentHome},
       {"icon": Icons.notifications, "route": RouteNames.notification},
       {"icon": Icons.person, "route": RouteNames.profile},
     ],
-    "teacher": [
+    "TUTOR": [
       {"icon": Icons.home, "route": RouteNames.sheikhHome},
       {"icon": Icons.notifications, "route": RouteNames.notification},
       {"icon": FontAwesomeIcons.trophy, "route": RouteNames.trophy},
@@ -36,11 +35,10 @@ class FloatingNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final navItems = roleNavItems[userRole] ?? roleNavItems["student"]!;
+    final navItems = roleNavItems[userRole] ?? roleNavItems["STUDENT"]!;
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
-
       child: Container(
         height: 63.h,
         width: 380.w,
@@ -55,51 +53,41 @@ class FloatingNavBar extends StatelessWidget {
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(28.r),
-
           child: BottomAppBar(
             color: AppColors.lightsecondary,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: List.generate(navItems.length, (index) {
                 final item = navItems[index];
-                return IconButton(
-                  padding: EdgeInsets.zero,
-                  icon: Icon(
-                    item["icon"],
-                    color: selectedIndex == index
-                        ? AppColors.primery
-                        : AppColors.lightsecondary,
-                    shadows: [
-                      Shadow(
-                        blurRadius: 0,
-                        color: AppColors.primery,
-                        offset: Offset(1, 1),
-                      ),
-                      Shadow(
-                        blurRadius: 0,
-                        color: AppColors.primery,
-                        offset: Offset(-1, 1),
-                      ),
-                      Shadow(
-                        blurRadius: 0,
-                        color: AppColors.primery,
-                        offset: Offset(1, -1),
-                      ),
-                      Shadow(
-                        blurRadius: 0,
-                        color: AppColors.primery,
-                        offset: Offset(-1, -1),
-                      ),
-                    ],
-                    size: 42.r,
-                  ),
-                  onPressed: () {
+                final bool isSelected = selectedIndex == index;
+
+                return GestureDetector(
+                  onTap: () {
                     if (ModalRoute.of(context)?.settings.name !=
                         item["route"]) {
                       Navigator.pushNamed(context, item["route"]);
                     }
                   },
+                  child: TweenAnimationBuilder<double>(
+                    tween: Tween<double>(
+                      begin: isSelected ? 1.0 : 0.8,
+                      end: isSelected ? 1.2 : 0.9,
+                    ),
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeOutBack,
+                    builder: (context, scale, child) {
+                      return Transform.scale(
+                        scale: scale,
+                        child: Icon(
+                          item["icon"],
+                          color: isSelected
+                              ? AppColors.primery
+                              : AppColors.lightprimery,
+                          size: isSelected ? 36.r : 28.r,
+                        ),
+                      );
+                    },
+                  ),
                 );
               }),
             ),

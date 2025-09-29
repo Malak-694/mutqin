@@ -3,10 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mutqin/core/constants/colors.dart';
 import 'package:mutqin/core/constants/text.dart';
+import 'package:mutqin/core/helper/shared_pref_helper.dart';
 import 'package:mutqin/features/auth/logic/cubit/auth_cubit.dart';
+import 'package:mutqin/features/auth/logic/cubit/auth_state.dart';
 
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/constants/string.dart';
+import '../../../../core/helper/shared_key.dart';
 import '../../../../core/router/route_names.dart';
 import '../../../../core/utils/validator.dart';
 import '../widgets/sign_button.dart';
@@ -36,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void _handleSignUp() {
     if (_formKey.currentState?.validate() ?? false) {
       // Call the register method from AuthCubit
-      context.read<AuthCubit>().login(
+      context.read<AuthCubit>().logIn(
         emailController.text.trim(),
         passwordController.text,
       );
@@ -49,23 +52,25 @@ class _LoginScreenState extends State<LoginScreen> {
       backgroundColor: AppColors.background,
       body: BlocListener<AuthCubit, AuthState>(
         listener: (context, state) {
-          if (state is AuthSuccess) {
-            ScaffoldMessenger.of(context).showSnackBar(
+          state.maybeWhen(
+            success: (data) {
+              if (data == 'STUDENT') {
+                Navigator.pushReplacementNamed(context, RouteNames.studentHome);
+              } else if (data == 'TUTOR') {
+                Navigator.pushReplacementNamed(context, RouteNames.sheikhHome);
+              } else {
+                // Default navigation or error handling
+                Navigator.pushReplacementNamed(context, RouteNames.login);
+              }
+            },
+            fail: (message) => ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(state.message, style: AppTextStyles.headline1),
-                backgroundColor: Colors.green,
-              ),
-            );
-            // Navigate to next screen on success
-            // Navigator.pushReplacementNamed(context, '/home');
-          } else if (state is AuthFailure) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.error, style: AppTextStyles.headline1),
+                content: Text(message, style: AppTextStyles.headline1),
                 backgroundColor: Colors.red,
               ),
-            );
-          }
+            ),
+            orElse: () {},
+          );
         },
         child: SingleChildScrollView(
           padding: EdgeInsets.only(top: 100.h),
@@ -104,12 +109,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: [
                         SizedBox(height: 80.h),
 
-                        Text(
-                          AppStrings.loginGoogle,
-                          style: AppTextStyles.body1,
-                        ),
-                        SizedBox(height: 30.h),
-                        SignGoogleButton(),
                         SizedBox(height: 30.h),
                         Text(AppStrings.loginEmail, style: AppTextStyles.body1),
                         SizedBox(height: 20.h),
@@ -133,7 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             return SignButton(
                               text: AppStrings.loginButton,
                               onPressed: _handleSignUp,
-                              isLoading: state is AuthLoading,
+                              isLoading: state is Loading,
                             );
                           },
                         ),

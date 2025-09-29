@@ -42,7 +42,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
       children: [
         Align(
           alignment: Alignment.centerRight,
-          child: Text(widget.label, style: AppTextStyles.headline1),
+          child: Text(
+            widget.label,
+            style: AppTextStyles.body1.copyWith(fontSize: 16.sp),
+          ),
         ),
         SizedBox(height: 5.h),
         SizedBox(
@@ -54,7 +57,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             controller: widget.controller,
             obscureText: widget.isPassword ? _obscureText : false,
             textAlign: TextAlign.end,
-            style: AppTextStyles.body1,
+            style: AppTextStyles.body1.copyWith(fontSize: 16.sp),
             decoration: InputDecoration(
               isDense: true, // reduces default vertical padding
               contentPadding: EdgeInsets.symmetric(

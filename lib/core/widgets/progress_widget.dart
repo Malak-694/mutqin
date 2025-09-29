@@ -68,7 +68,7 @@ class ProgressCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(5.dg),
+      padding: EdgeInsets.all(5.w), // ✅ fixed: use w or h
       height: 80.h,
       width: 160.w,
       decoration: BoxDecoration(
@@ -90,7 +90,12 @@ class ProgressCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Text(type, style: AppTextStyles.body2.copyWith(fontSize: 20.sp)),
+              Text(
+                type,
+                style: AppTextStyles.body2.copyWith(
+                  fontSize: 20.sp,
+                ), // ✅ text = sp
+              ),
               SizedBox(width: 5.w),
               Container(
                 height: 28.h,
@@ -99,7 +104,11 @@ class ProgressCard extends StatelessWidget {
                   color: AppColors.primery,
                   shape: BoxShape.circle,
                 ),
-                child: Icon(icon, color: AppColors.background, size: 18.h),
+                child: Icon(
+                  icon,
+                  color: AppColors.background,
+                  size: 18.sp, // ✅ icon size also better with sp
+                ),
               ),
             ],
           ),
@@ -108,7 +117,7 @@ class ProgressCard extends StatelessWidget {
             children: [
               Text(
                 describtion,
-                style: AppTextStyles.headline2.copyWith(fontSize: 25.h),
+                style: AppTextStyles.headline2.copyWith(fontSize: 25.sp),
               ),
               SizedBox(width: 30.w),
             ],

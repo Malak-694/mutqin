@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mutqin/core/di/dependency_injection.dart';
 import 'core/router/app_router.dart';
 import 'core/router/route_names.dart';
 
 void main() {
+  setupGetIt();
   runApp(const MutqinApp());
 }
 
@@ -19,7 +21,7 @@ class MutqinApp extends StatelessWidget {
       builder: (context, child) {
         return MaterialApp(
           title: 'Mutqin',
-          initialRoute: RouteNames.studentProgress,
+          initialRoute: RouteNames.register,
           onGenerateRoute: AppRouter.generateRoute,
         );
       },

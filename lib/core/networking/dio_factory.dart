@@ -1,115 +1,37 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
-import 'package:mutqin/core/networking/api_endpoints.dart';
+import 'package:mutqin/core/helper/shared_key.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import '../helper/shared_pref_helper.dart';
 
 class DioFactory {
+  DioFactory._();
   static Dio? dio;
+  static Dio getDio() {
+    Duration timeOut = Duration(minutes: 2);
+    if (dio == null) {
+      dio = Dio();
+      dio!..options.connectTimeout = timeOut;
+      dio!..options.receiveTimeout = timeOut;
+      addDioHeader();
+      addDioInterceptor();
+      return dio!;
+    } else {
+      return dio!;
+    }
+  }
 
-  static initDio() {
-    dio ??= Dio(
-      BaseOptions(
-        baseUrl: ApiEndpoints.baseUrl,
-        receiveDataWhenStatusError: true,
+  static void addDioHeader() async {
+    dio?.options.headers = {'Accept': "application/json"};
+  }
+
+  static void addDioInterceptor() {
+    dio?.interceptors.add(
+      PrettyDioLogger(
+        requestBody: true,
+        requestHeader: true,
+        responseHeader: true,
+        responseBody: true,
       ),
     );
-  }
-
-  static Future<Response?> getData({
-    required String endpoint,
-    Map<String, dynamic>? query,
-    Map<String, dynamic>? headers,
-  }) async {
-    try {
-      Response response = await dio!.get(
-        endpoint,
-        queryParameters: query,
-        options: Options(headers: headers),
-      );
-      return response;
-    } catch (e) {
-      log(e.toString());
-      return null;
-    }
-  }
-
-  static Future<Response?> postData({
-    required String endpoint,
-    Map<String, dynamic>? data,
-    Map<String, dynamic>? query,
-    Map<String, dynamic>? headers,
-  }) async {
-    try {
-      Response response = await dio!.post(
-        endpoint,
-        data: data,
-        queryParameters: query,
-        options: Options(headers: headers),
-      );
-      return response;
-    } catch (e) {
-      log(e.toString());
-      return null;
-    }
-  }
-
-  static Future<Response?> putData({
-    required String endpoint,
-    Map<String, dynamic>? data,
-    Map<String, dynamic>? query,
-    Map<String, dynamic>? headers,
-  }) async {
-    try {
-      Response response = await dio!.put(
-        endpoint,
-        data: data,
-        queryParameters: query,
-        options: Options(headers: headers),
-      );
-      return response;
-    } catch (e) {
-      log(e.toString());
-      return null;
-    }
-  }
-
-  static Future<Response?> patchData({
-    required String endpoint,
-    Map<String, dynamic>? data,
-    Map<String, dynamic>? query,
-    Map<String, dynamic>? headers,
-  }) async {
-    try {
-      Response response = await dio!.patch(
-        endpoint,
-        data: data,
-        queryParameters: query,
-        options: Options(headers: headers),
-      );
-      return response;
-    } catch (e) {
-      log(e.toString());
-      return null;
-    }
-  }
-
-  static Future<Response?> deleteData({
-    required String endpoint,
-    Map<String, dynamic>? data,
-    Map<String, dynamic>? query,
-    Map<String, dynamic>? headers,
-  }) async {
-    try {
-      Response response = await dio!.delete(
-        endpoint,
-        data: data,
-        queryParameters: query,
-        options: Options(headers: headers),
-      );
-      return response;
-    } catch (e) {
-      log(e.toString());
-      return null;
-    }
   }
 }

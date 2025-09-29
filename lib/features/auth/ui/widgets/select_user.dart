@@ -2,19 +2,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mutqin/core/constants/text.dart';
-
 import '../../../../core/constants/colors.dart';
 
 class UserTypeSelector extends StatefulWidget {
-  final String selectedUserType;
+  final String selectedUserType; // e.g. "student" or "teacher"
   final Function(String) onUserTypeChanged;
-  final List<String> userTypes;
+  final Map<String, String> userTypes;
 
   const UserTypeSelector({
     Key? key,
     required this.selectedUserType,
     required this.onUserTypeChanged,
-    this.userTypes = const ['طالب/ة', 'ولي أمر', 'معلم/ة'],
+    this.userTypes = const {'STUDENT': 'طالب/ة', 'TUTOR': 'مدرس/ة'},
   }) : super(key: key);
 
   @override
@@ -26,25 +25,24 @@ class _UserTypeSelectorState extends State<UserTypeSelector> {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: widget.userTypes
-          .map((type) => _buildUserTypeOption(type))
+      children: widget.userTypes.entries
+          .map((entry) => _buildUserTypeOption(entry.key, entry.value))
           .toList(),
     );
   }
 
-  Widget _buildUserTypeOption(String type) {
-    bool isSelected = widget.selectedUserType == type;
+  Widget _buildUserTypeOption(String key, String label) {
+    bool isSelected = widget.selectedUserType == key;
+
     return GestureDetector(
       onTap: () {
-        // Call the callback function to notify parent
-        widget.onUserTypeChanged(type);
+        widget.onUserTypeChanged(key);
       },
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(type, style: AppTextStyles.body1),
+          Text(label, style: AppTextStyles.body1), // Arabic label for UI
           const SizedBox(width: 8),
-
           Container(
             width: 16.w,
             height: 16.h,

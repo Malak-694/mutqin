@@ -13,16 +13,16 @@ class SignGoogleButton extends StatelessWidget {
       onPressed: () {
         // Handle Google Sign-In
       },
-      icon: Icon(Icons.login, color: AppColors.background, size: 40.sp),
+      icon: Icon(Icons.login, color: AppColors.background, size: 25.sp),
       label: Text(
         'Google',
-        style: AppTextStyles.button.copyWith(fontSize: 30.sp),
+        style: AppTextStyles.button.copyWith(fontSize: 20.sp),
       ),
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.lightprimery,
-        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h),
+        padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 3.h),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(13.r),
+          borderRadius: BorderRadius.circular(8.r),
           side: BorderSide(
             color: const Color.fromARGB(176, 255, 253, 246),
             width: 1.w,

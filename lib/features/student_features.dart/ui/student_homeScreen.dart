@@ -116,7 +116,7 @@ class _StudentHomescreenState extends State<StudentHomescreen> {
         ),
       ),
       bottomNavigationBar: FloatingNavBar(
-        userRole: "student", // Example role
+        userRole: "STUDENT", // Example role
         selectedIndex: 0, // Profile index
       ),
     );
