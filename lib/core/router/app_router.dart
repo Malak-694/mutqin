@@ -8,7 +8,8 @@ import 'package:mutqin/features/auth/ui/screens/login_screen.dart';
 import 'package:mutqin/features/auth/ui/screens/signup_screen.dart';
 import 'package:mutqin/features/notification/logic/cubit/notification_cubit.dart';
 import 'package:mutqin/features/notification/ui/notification_screen.dart';
-import 'package:mutqin/features/profile/ui/profile.dart';
+import 'package:mutqin/features/profile/logic/cubit/profile_cubit.dart';
+import 'package:mutqin/features/profile/ui/profile_screen.dart';
 import 'package:mutqin/features/sheikh_features/ui/sheikh_home_screen.dart';
 import 'package:mutqin/features/sheikh_features/ui/student_progress_screen.dart';
 import 'package:mutqin/features/student_features.dart/ui/sheikh_search_screen.dart';
@@ -37,7 +38,11 @@ class AppRouter {
           ),
         );
       case RouteNames.profile:
-        return MaterialPageRoute(builder: (_) => ProfileScreen());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => ProfileCubit(getIt()),
+            child: ProfileScreen(),
+          ),);
       case RouteNames.notification:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(

@@ -58,12 +58,16 @@ class AuthCubit extends Cubit<AuthState> {
       final ApiResult<LoginResponse> result = await repo.logIn(request);
       result.when(
         success: (LoginResponse response) async {
-          final ApiResult<User> userResult = await repo.getUser(email);
+          await prefs.setSecureData(
+            SharedPrefKey.token,
+            response.token,
+          );
+          final ApiResult<User> userResult = await repo.getUserbyToken(response.token);
           userResult.when(
             success: (User user) async {
                await prefs.setData(
                 SharedPrefKey.id,
-                user.id.toString(),
+                user.id,
               );
               await prefs.setData(
                 SharedPrefKey.role,
@@ -79,10 +83,7 @@ class AuthCubit extends Cubit<AuthState> {
               );
             },
           );
-          await prefs.setSecureData(
-            SharedPrefKey.token,
-            response.token,
-          );
+          
         },
         failure: (error) {
           emit(

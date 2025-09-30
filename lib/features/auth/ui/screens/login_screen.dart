@@ -3,17 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mutqin/core/constants/colors.dart';
 import 'package:mutqin/core/constants/text.dart';
-import 'package:mutqin/core/helper/shared_pref_helper.dart';
 import 'package:mutqin/features/auth/logic/cubit/auth_cubit.dart';
 import 'package:mutqin/features/auth/logic/cubit/auth_state.dart';
 
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/constants/string.dart';
-import '../../../../core/helper/shared_key.dart';
 import '../../../../core/router/route_names.dart';
 import '../../../../core/utils/validator.dart';
 import '../widgets/sign_button.dart';
-import '../widgets/sign_google.dart';
 import '../widgets/text_field.dart';
 
 class LoginScreen extends StatefulWidget {

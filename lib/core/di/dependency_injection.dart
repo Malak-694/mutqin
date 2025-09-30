@@ -6,6 +6,8 @@ import 'package:mutqin/features/auth/data/repo/auth_repo.dart';
 import 'package:mutqin/features/auth/logic/cubit/auth_cubit.dart';
 import 'package:mutqin/features/notification/data/repo/notification_repo.dart';
 import 'package:mutqin/features/notification/logic/cubit/notification_cubit.dart';
+import 'package:mutqin/features/profile/data/repo/profile_repo.dart';
+import 'package:mutqin/features/profile/logic/cubit/profile_cubit.dart';
 
 import '../helper/shared_pref_helper.dart';
 
@@ -13,7 +15,6 @@ final GetIt getIt = GetIt.instance;
 Future<void> setupGetIt() async {
   Dio dio = DioFactory.getDio();
 
-  // ✅ Register SharedPreferences
   await SharedPrefHelper.init();
   getIt.registerSingleton<SharedPrefHelper>(SharedPrefHelper());
   
@@ -25,5 +26,12 @@ Future<void> setupGetIt() async {
   );
   getIt.registerLazySingleton<NotificationCubit>(
     () => NotificationCubit(getIt()),
+  );
+
+  getIt.registerLazySingleton<ProfileRepo>(
+    () => ProfileRepo(apiService: getIt()),
+  );
+  getIt.registerLazySingleton<ProfileCubit>(
+    () => ProfileCubit( getIt()),
   );
 }

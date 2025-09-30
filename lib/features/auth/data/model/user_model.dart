@@ -12,8 +12,6 @@ class User {
   String? phone;
   String? memorizationleveltype; // <-- was Null? (fixed)
   String? points;
-  String? googleId;
-  String? provider;
   String? profilePictureUrl; // <-- was Null? (fixed)
   String? role;
 
@@ -26,8 +24,6 @@ class User {
     this.phone,
     this.memorizationleveltype,
     this.points,
-    this.googleId,
-    this.provider,
     this.profilePictureUrl,
     this.role,
   });

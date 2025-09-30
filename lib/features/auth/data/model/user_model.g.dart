@@ -15,8 +15,6 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
   phone: json['phone'] as String?,
   memorizationleveltype: json['memorizationleveltype'] as String?,
   points: json['points'] as String?,
-  googleId: json['googleId'] as String?,
-  provider: json['provider'] as String?,
   profilePictureUrl: json['profilePictureUrl'] as String?,
   role: json['role'] as String?,
 );
@@ -30,8 +28,6 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
   'phone': instance.phone,
   'memorizationleveltype': instance.memorizationleveltype,
   'points': instance.points,
-  'googleId': instance.googleId,
-  'provider': instance.provider,
   'profilePictureUrl': instance.profilePictureUrl,
   'role': instance.role,
 };

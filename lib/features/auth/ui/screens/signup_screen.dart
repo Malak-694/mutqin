@@ -11,7 +11,6 @@ import '../../../../core/router/route_names.dart';
 import '../../../../core/utils/validator.dart';
 import '../../logic/cubit/auth_state.dart';
 import '../widgets/sign_button.dart';
-import '../widgets/sign_google.dart';
 import '../widgets/text_field.dart';
 
 class SignUpScreen extends StatefulWidget {

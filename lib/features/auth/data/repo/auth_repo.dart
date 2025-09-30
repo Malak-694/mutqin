@@ -25,9 +25,9 @@ class AuthRepo {
       return ApiResult.failure(e.toString());
     }
   }
-Future<ApiResult<User>> getUser(String emailOrUsername) async {
+Future<ApiResult<User>> getUserbyToken(String token) async {
     try {
-      final response = await apiService.getUser(emailOrUsername);
+      final response = await apiService.getUserbyToken("Bearer $token");
       return ApiResult.success(response);
     } catch (e) {
       return ApiResult.failure(e.toString());

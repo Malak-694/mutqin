@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:mutqin/core/networking/api_endpoints.dart';
 import 'package:mutqin/features/auth/data/model/sign_up_model.dart';
 import 'package:mutqin/features/notification/data/model/notification_model.dart';
+import 'package:mutqin/features/profile/data/model/profile_model.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
 
@@ -20,8 +21,8 @@ abstract class ApiService {
   @POST(ApiEndpoints.login)
   Future<LoginResponse> logIn(@Body() LoginRequest body);
 
-  @GET(ApiEndpoints.userProfile)
-  Future<User> getUser(@Query("emailOrUsername") String emailOrUsername);
+  @GET(ApiEndpoints.userProfileToken)
+  Future<User> getUserbyToken( @Header("Authorization") String token,);
 
   @GET(ApiEndpoints.notificationAll)
   Future<List<Message>> getNotificationsAll(@Path("id") String id);
@@ -31,4 +32,12 @@ abstract class ApiService {
 
   @PUT(ApiEndpoints.readNotification)
   Future<void> readNotification(@Path("notiId") String id);
+
+  @PUT(ApiEndpoints.updateProfile)
+  Future<ProfileModel > upadteProfile(
+    @Header("Authorization") String token,
+    @Body()  Map<String, dynamic> profile,
+  );
+  @DELETE(ApiEndpoints.updateProfile)
+  Future<String> deleteProfile(@Header("Authorization") String token);
 }
