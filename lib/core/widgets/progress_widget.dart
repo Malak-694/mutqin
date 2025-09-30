@@ -2,48 +2,45 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mutqin/core/constants/text.dart';
+import 'package:mutqin/features/student_features/data/models/progress_model.dart';
 
 import '../constants/colors.dart';
 
 class ProgressWidget extends StatelessWidget {
-  final Map<String, String> progress;
+  final ProgressModel progress;
 
   const ProgressWidget({super.key, required this.progress});
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 170.h,
-      child: Row(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               ProgressCard(
                 type: "الجلسات",
                 icon: Icons.laptop,
-                describtion: progress["sessions"]!,
+                describtion: progress.sessionsAttended!,
               ),
               ProgressCard(
                 type: "النقاط",
                 icon: Icons.star,
-                describtion: progress["points"]!,
+                describtion: progress.points!,
               ),
             ],
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
 
             children: [
-              ProgressCard(
-                type: "المدة",
-                icon: Icons.alarm,
-                describtion: progress["duration"]!,
-              ),
+              
               ProgressCard(
                 type: "عدد الصفح",
                 icon: Icons.book,
-                describtion: progress["pageLearned"]!,
+                describtion: progress.newLearnedPages!,
               ),
             ],
           ),

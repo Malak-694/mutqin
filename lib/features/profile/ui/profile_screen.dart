@@ -42,7 +42,7 @@ class ProfileScreen extends StatelessWidget {
                     style: AppTextStyles.body1,
                     textAlign: TextAlign.end,
                   ),
-                  backgroundColor: Colors.red,
+                   backgroundColor: AppColors.darkprimery,
                 ),
               );
             },

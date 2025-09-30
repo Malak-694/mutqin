@@ -12,13 +12,17 @@ import 'package:mutqin/features/profile/logic/cubit/profile_cubit.dart';
 import 'package:mutqin/features/profile/ui/profile_screen.dart';
 import 'package:mutqin/features/sheikh_features/ui/sheikh_home_screen.dart';
 import 'package:mutqin/features/sheikh_features/ui/student_progress_screen.dart';
-import 'package:mutqin/features/student_features.dart/ui/sheikh_search_screen.dart';
+import 'package:mutqin/features/student_features/logic/cubit/book_cubit.dart';
+import 'package:mutqin/features/student_features/logic/cubit/progress_cubit.dart';
+import 'package:mutqin/features/student_features/logic/cubit/sessions_cubit.dart';
+import 'package:mutqin/features/student_features/logic/cubit/tutors_cubit.dart';
+import 'package:mutqin/features/student_features/ui/sheikh_search_screen.dart';
 
 import '../../features/admin_features/admin_screen.dart';
 import '../../features/parent_features/parent_home_screen.dart';
 import '../../features/parent_features/son_report_screen.dart';
 import '../../features/sheikh_features/ui/trophy_screen.dart';
-import '../../features/student_features.dart/ui/student_homeScreen.dart';
+import '../../features/student_features/ui/student_homeScreen.dart';
 
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -42,7 +46,8 @@ class AppRouter {
           builder: (_) => BlocProvider(
             create: (_) => ProfileCubit(getIt()),
             child: ProfileScreen(),
-          ),);
+          ),
+        );
       case RouteNames.notification:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
@@ -51,9 +56,25 @@ class AppRouter {
           ),
         );
       case RouteNames.studentHome:
-        return MaterialPageRoute(builder: (_) => StudentHomescreen());
+        return MaterialPageRoute(
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider<ProgressCubit>(create: (context) => ProgressCubit(getIt())),
+              BlocProvider<SessionsCubit>(create: (context) => SessionsCubit(getIt())),
+            ],
+            child: StudentHomescreen(),
+          ),
+        );
       case RouteNames.sheikhSearchResults:
-        return MaterialPageRoute(builder: (_) => SheikhSearchResults());
+        return MaterialPageRoute(
+          builder: (_) => MultiBlocProvider(
+             providers: [
+              BlocProvider<TutorsCubit>(create: (context) => TutorsCubit(getIt())),
+              BlocProvider<BookCubit>(create: (context) => BookCubit(getIt())),
+            ],
+            child: SheikhSearchResults(),
+          ),
+        );
       case RouteNames.sheikhHome:
         return MaterialPageRoute(builder: (_) => SheikhHomeScreen());
       case RouteNames.studentProgress:

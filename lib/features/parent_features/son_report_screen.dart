@@ -75,7 +75,7 @@ class SonReportScreen extends StatelessWidget {
 
             SizedBox(height: 40.h),
 
-            ProgressWidget(progress: person),
+         //   ProgressWidget(progress: person),
             SizedBox(height: 30.h),
 
             StudentTrophies(trophies: trophies),

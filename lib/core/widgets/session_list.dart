@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mutqin/features/student_features/data/models/session_model.dart';
 
 import 'session_card.dart';
 import '../constants/colors.dart';
@@ -7,7 +8,7 @@ import '../constants/colors.dart';
 class SessionList extends StatelessWidget {
   const SessionList({super.key, required this.sessions, this.height = 270});
 
-  final List<Map<String, String>> sessions;
+  final List<SessionModel> sessions;
   final double height;
 
   @override

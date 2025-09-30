@@ -45,7 +45,7 @@ class ParentHome extends StatelessWidget {
               textAlign: TextAlign.end,
             ),
             SizedBox(height: 10.h),
-            PersonsList(persons: persons, onPressed: () {}, height: 340),
+            //  PersonsList(persons: persons, onPressed: () {}, height: 340),
             SizedBox(height: 40.h),
             Text(AppStrings.addSon, style: AppTextStyles.headline2),
             SizedBox(height: 10.h),

@@ -8,7 +8,12 @@ import 'package:mutqin/features/notification/data/repo/notification_repo.dart';
 import 'package:mutqin/features/notification/logic/cubit/notification_cubit.dart';
 import 'package:mutqin/features/profile/data/repo/profile_repo.dart';
 import 'package:mutqin/features/profile/logic/cubit/profile_cubit.dart';
+import 'package:mutqin/features/student_features/logic/cubit/book_cubit.dart';
+import 'package:mutqin/features/student_features/logic/cubit/progress_cubit.dart';
+import 'package:mutqin/features/student_features/logic/cubit/sessions_cubit.dart';
+import 'package:mutqin/features/student_features/logic/cubit/tutors_cubit.dart';
 
+import '../../features/student_features/data/repo/student_repo.dart';
 import '../helper/shared_pref_helper.dart';
 
 final GetIt getIt = GetIt.instance;
@@ -17,7 +22,7 @@ Future<void> setupGetIt() async {
 
   await SharedPrefHelper.init();
   getIt.registerSingleton<SharedPrefHelper>(SharedPrefHelper());
-  
+
   getIt.registerLazySingleton<ApiService>(() => ApiService(dio));
   getIt.registerLazySingleton<AuthRepo>(() => AuthRepo(apiService: getIt()));
   getIt.registerSingleton<AuthCubit>(AuthCubit(getIt()));
@@ -31,7 +36,12 @@ Future<void> setupGetIt() async {
   getIt.registerLazySingleton<ProfileRepo>(
     () => ProfileRepo(apiService: getIt()),
   );
-  getIt.registerLazySingleton<ProfileCubit>(
-    () => ProfileCubit( getIt()),
+  getIt.registerLazySingleton<ProfileCubit>(() => ProfileCubit(getIt()));
+  getIt.registerLazySingleton<StudentRepo>(
+    () => StudentRepo(apiService: getIt()),
   );
+  getIt.registerLazySingleton<SessionsCubit>(() => SessionsCubit(getIt()));
+  getIt.registerLazySingleton<BookCubit>(() => BookCubit(getIt()));
+  getIt.registerLazySingleton<TutorsCubit>(() => TutorsCubit(getIt()));
+  getIt.registerLazySingleton<ProgressCubit>(() => ProgressCubit(getIt()));
 }

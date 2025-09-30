@@ -70,6 +70,10 @@ class AuthCubit extends Cubit<AuthState> {
                 user.id,
               );
               await prefs.setData(
+                SharedPrefKey.username,
+                user.username,
+              );
+              await prefs.setData(
                 SharedPrefKey.role,
                 user.role,
               );

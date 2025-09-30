@@ -99,8 +99,8 @@ class SheikhHomeScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            SessionList(sessions: sessions, height: 355),
-            PersonsList(persons: persons, onPressed: onPressed, height: 355),
+            //SessionList(sessions: sessions, height: 355),
+          //  PersonsList(persons: persons, onPressed: onPressed, height: 355),
           ],
         ),
       ),

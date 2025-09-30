@@ -70,7 +70,7 @@ class _StudentProgressState extends State<StudentProgress> {
                 textAlign: TextAlign.end,
               ),
               SizedBox(height: 20.h),
-              ProgressWidget(progress: person),
+              //ProgressWidget(progress: person),
 
               SizedBox(height: 20.h),
               SheikhAddTrophy(intialTrophies: trophies, onPressed: tryed),

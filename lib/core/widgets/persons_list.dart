@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mutqin/core/widgets/person_card.dart';
+import 'package:mutqin/features/profile/data/model/profile_model.dart';
 
 import '../constants/colors.dart';
 
@@ -12,8 +13,8 @@ class PersonsList extends StatelessWidget {
     this.height,
   });
 
-  final List<Map<String, String>> persons;
-  final VoidCallback onPressed;
+  final List<ProfileModel> persons;
+  final Function(String tutorId) onPressed;
   final double? height;
 
   @override

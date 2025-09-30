@@ -3,9 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mutqin/core/di/dependency_injection.dart';
 import 'core/router/app_router.dart';
 import 'core/router/route_names.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
-void main() {
+void main()async {
   setupGetIt();
+    await initializeDateFormatting('ar', null);
+
   runApp(const MutqinApp());
 }
 

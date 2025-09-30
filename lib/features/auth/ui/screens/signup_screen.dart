@@ -66,8 +66,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
             },
             fail: (message) => ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(message, style: AppTextStyles.headline1),
-                backgroundColor: Colors.red,
+                content: Text(message, style: AppTextStyles.body1, textAlign: TextAlign.end,),
+                 backgroundColor: AppColors.darkprimery,
               ),
             ),
             orElse: () {},

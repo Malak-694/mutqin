@@ -53,7 +53,7 @@ class AdminScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20.h),
-            PersonsList(persons: persons, onPressed: () {}, height: 560),
+            //PersonsList(persons: persons, onPressed: () {}, height: 560),
           ],
         ),
       ),

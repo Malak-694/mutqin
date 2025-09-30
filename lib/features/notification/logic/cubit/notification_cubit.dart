@@ -34,7 +34,7 @@ class NotificationCubit extends Cubit<NotificationState> {
     emit(const NotificationState.loading());
 
     if (userId == null) {
-      emit(const NotificationState.fail("User ID not available"));
+      emit(const NotificationState.fail("لم يتم العثور على المستخدم"));
       return;
     }
 

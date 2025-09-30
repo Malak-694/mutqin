@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
+import 'package:mutqin/features/student_features/data/models/session_model.dart';
 
 import '../constants/colors.dart';
 import '../constants/string.dart';
@@ -8,7 +10,20 @@ import '../constants/text.dart';
 class SessionCard extends StatelessWidget {
   const SessionCard({super.key, required this.sessions});
 
-  final List<Map<String, String>> sessions;
+  final List<SessionModel> sessions;
+  String formatArabicDate(String backendDate) {
+    // parse the ISO string
+    DateTime dateTime = DateTime.parse(backendDate);
+
+    // اضبط الـ locale على العربي
+    var formatter = DateFormat.yMMMMEEEEd('ar'); // يوم + شهر + سنة
+    var timeFormatter = DateFormat.Hm('ar'); // الساعة والدقيقة
+
+    String formattedDate = formatter.format(dateTime);
+    String formattedTime = timeFormatter.format(dateTime);
+
+    return "$formattedDate - $formattedTime";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,13 +43,19 @@ class SessionCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(session.sheikhUsername!, style: AppTextStyles.headline1),
+                ],
+              ),
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    session["date"]!,
+                    formatArabicDate(session.date!),
                     style: AppTextStyles.body2.copyWith(fontSize: 18.sp),
                   ),
-                  session["status"] == "active"
+                  session.status == "active"
                       ? ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color.fromARGB(
@@ -57,46 +78,36 @@ class SessionCard extends StatelessWidget {
                             style: AppTextStyles.body1,
                           ),
                         )
-                      : session["status"] == "pending"
+                      : session.status == "Upcomming"
                       ? Row(
                           children: [
-                            ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color.fromARGB(
-                                  255,
-                                  251,
-                                  137,
-                                  122,
-                                ),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12.r),
-                                ),
-                                side: BorderSide(
-                                  color: AppColors.primery,
-                                  width: 1.w,
-                                ),
-                              ),
-                              child: Text(
-                                AppStrings.cancel,
-                                style: AppTextStyles.body1,
-                              ),
-                            ),
-                            SizedBox(width: 5.w),
-                            Text("قادمة", style: AppTextStyles.body1),
+                            // ElevatedButton(
+                            //   onPressed: () {},
+                            //   style: ElevatedButton.styleFrom(
+                            //     backgroundColor: const Color.fromARGB(
+                            //       255,
+                            //       251,
+                            //       137,
+                            //       122,
+                            //     ),
+                            //     shape: RoundedRectangleBorder(
+                            //       borderRadius: BorderRadius.circular(12.r),
+                            //     ),
+                            //     side: BorderSide(
+                            //       color: AppColors.primery,
+                            //       width: 1.w,
+                            //     ),
+                            //   ),
+                            //   child: Text(
+                            //     AppStrings.cancel,
+                            //     style: AppTextStyles.body1,
+                            //   ),
+                            // ),
+                            // SizedBox(width: 5.w),
+                            Text("قـادمـــة", style: AppTextStyles.body1),
                           ],
                         )
-                      : Text("مكتملة", style: AppTextStyles.headline2),
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(session["title"]!, style: AppTextStyles.headline1),
-                  Text(
-                    session["sheikhname"]!,
-                    style: AppTextStyles.headline2.copyWith(fontSize: 20.sp),
-                  ),
+                      : Text("مكــتملة", style: AppTextStyles.headline2),
                 ],
               ),
             ],
