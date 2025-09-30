@@ -1,9 +1,9 @@
 import 'package:mutqin/core/networking/api_result.dart';
 import 'package:mutqin/core/networking/api_service.dart';
-import 'package:mutqin/features/auth/data/models/sign_up_model.dart';
-import 'package:mutqin/features/auth/data/models/user_model.dart';
+import 'package:mutqin/features/auth/data/model/sign_up_model.dart';
+import 'package:mutqin/features/auth/data/model/user_model.dart';
 
-import '../models/login_model.dart';
+import '../model/login_model.dart';
 
 class AuthRepo {
   ApiService apiService;

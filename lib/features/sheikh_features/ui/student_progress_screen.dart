@@ -18,10 +18,10 @@ class StudentProgress extends StatefulWidget {
 class _StudentProgressState extends State<StudentProgress> {
   @override
   void tryed() {
-    SharedPrefHelper.setData("is_logged_in", true);
-    SharedPrefHelper.getData("is_logged_in").then((value) {
-      print("value is $value");
-    });
+    // SharedPrefHelper.setData("is_logged_in", true);
+    // SharedPrefHelper.getData("is_logged_in").then((value) {
+    //   print("value is $value");
+    // });
   }
 
   Widget build(BuildContext context) {

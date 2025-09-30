@@ -1,17 +1,20 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mutqin/core/helper/shared_key.dart';
 
-import 'package:mutqin/features/auth/data/models/sign_up_model.dart';
+import 'package:mutqin/features/auth/data/model/sign_up_model.dart';
 import 'package:mutqin/features/auth/data/repo/auth_repo.dart';
 import 'package:mutqin/features/auth/logic/cubit/auth_state.dart';
 
+import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/helper/shared_pref_helper.dart';
 import '../../../../core/networking/api_result.dart';
-import '../../data/models/login_model.dart';
-import '../../data/models/user_model.dart';
+import '../../data/model/login_model.dart';
+import '../../data/model/user_model.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   final AuthRepo repo;
+    final prefs = getIt<SharedPrefHelper>();
+
   AuthCubit(this.repo) : super(AuthState.initial());
 
   Future<void> signUp(
@@ -58,11 +61,11 @@ class AuthCubit extends Cubit<AuthState> {
           final ApiResult<User> userResult = await repo.getUser(email);
           userResult.when(
             success: (User user) async {
-              await SharedPrefHelper.setData(
+               await prefs.setData(
                 SharedPrefKey.id,
                 user.id.toString(),
               );
-              await SharedPrefHelper.setData(
+              await prefs.setData(
                 SharedPrefKey.role,
                 user.role,
               );
@@ -76,7 +79,7 @@ class AuthCubit extends Cubit<AuthState> {
               );
             },
           );
-          await SharedPrefHelper.setSecureData(
+          await prefs.setSecureData(
             SharedPrefKey.token,
             response.token,
           );

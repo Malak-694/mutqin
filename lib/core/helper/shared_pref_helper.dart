@@ -2,81 +2,71 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefHelper {
+  static SharedPreferences? _prefs;
   static const FlutterSecureStorage _secureStorage = FlutterSecureStorage();
 
-  static getData(String key) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.get(key);
+  /// Call this once in setupGetIt()
+  static Future<void> init() async {
+    _prefs = await SharedPreferences.getInstance();
   }
 
-  static Future<void> setData(String key, value) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+  /// --------------------
+  /// NORMAL STORAGE
+  /// --------------------
+
+  dynamic getData(String key) {
+    return _prefs?.get(key);
+  }
+
+  Future<void> setData(String key, dynamic value) async {
+    if (_prefs == null) throw Exception("SharedPrefHelper not initialized");
+
     switch (value.runtimeType) {
       case const (String):
-        await prefs.setString(key, value);
+        await _prefs!.setString(key, value);
         break;
       case const (int):
-        await prefs.setInt(key, value);
+        await _prefs!.setInt(key, value);
         break;
       case const (double):
-        await prefs.setDouble(key, value);
+        await _prefs!.setDouble(key, value);
         break;
       case const (bool):
-        await prefs.setBool(key, value);
+        await _prefs!.setBool(key, value);
         break;
       case const (List<String>):
-        await prefs.setStringList(key, value);
+        await _prefs!.setStringList(key, value);
         break;
       default:
         throw Exception("Unsupported type");
     }
   }
 
-  static Future<void> remove(String key) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.remove(key);
+  Future<void> remove(String key) async {
+    await _prefs?.remove(key);
   }
 
-  static Future<void> clearAll() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.clear();
+  Future<void> clearAll() async {
+    await _prefs?.clear();
   }
 
   /// --------------------
   /// SECURE STORAGE (Encrypted)
   /// --------------------
 
-  static Future<void> setSecureData(String key, value) async {
-    switch (value.runtimeType) {
-      case const (String):
-        await _secureStorage.write(key: key, value: value);
-        break;
-      case const (int):
-        await _secureStorage.write(key: key, value: value);
-        break;
-      case const (double):
-        await _secureStorage.write(key: key, value: value);
-        break;
-      case const (bool):
-        await _secureStorage.write(key: key, value: value);
-        break;
-      case const (List<String>):
-        await _secureStorage.write(key: key, value: value);
-        break;
-      default:
-        throw Exception("Unsupported type");
-    }
+  Future<void> setSecureData(String key, dynamic value) async {
+    await _secureStorage.write(key: key, value: value.toString());
   }
 
-  static Future<String?> getSecureData(String key) async {
+  Future<String?> getSecureData(String key) async {
     return await _secureStorage.read(key: key);
   }
 
-  static Future<void> removeSecureData(String key) async {
+  Future<void> removeSecureData(String key) async {
     await _secureStorage.delete(key: key);
   }
 
-  static Future<void> clearAllSecure() async {
+  Future<void> clearAllSecure() async {
     await _secureStorage.deleteAll();
   }
 }
