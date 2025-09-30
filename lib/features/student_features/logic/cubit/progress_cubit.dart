@@ -8,7 +8,6 @@ import '../../../../core/helper/shared_key.dart';
 import '../../../../core/helper/shared_pref_helper.dart';
 import '../../data/models/progress_model.dart';
 
-
 class ProgressCubit extends Cubit<ProgressState> {
   StudentRepo repo;
   final SharedPrefHelper prefs = getIt<SharedPrefHelper>();
@@ -32,9 +31,8 @@ class ProgressCubit extends Cubit<ProgressState> {
     result.when(
       success: (data) {
         progresses = data;
-        final ProgressModel lastProgress = data.last;
 
-        emit(ProgressState.success(lastProgress));
+        emit(ProgressState.success(progresses));
       },
       failure: (error) {
         emit(const ProgressState.fail("نحن نواجه مشكلة ونعمل على حلها"));

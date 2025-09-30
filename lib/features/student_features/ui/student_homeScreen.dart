@@ -85,8 +85,8 @@ class _StudentHomescreenState extends State<StudentHomescreen> {
                   loading: () => const Center(
                     child: CircularProgressIndicator(color: AppColors.primery),
                   ),
-                  success: (lastProgress) =>
-                      ProgressWidget(progress: lastProgress),
+                  success: (progress) =>
+                      ProgressWidget(progresses: progress),
                   fail: (error) => Center(
                     child: Text(error, style: AppTextStyles.headline2),
                   ),
