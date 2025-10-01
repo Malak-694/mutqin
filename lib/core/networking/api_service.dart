@@ -3,6 +3,7 @@ import 'package:mutqin/core/networking/api_endpoints.dart';
 import 'package:mutqin/features/auth/data/model/sign_up_model.dart';
 import 'package:mutqin/features/notification/data/model/notification_model.dart';
 import 'package:mutqin/features/profile/data/model/profile_model.dart';
+import 'package:mutqin/features/sheikh_features/data/model/calendy_model.dart';
 import 'package:mutqin/features/student_features/data/models/book_session.dart';
 import 'package:mutqin/features/student_features/data/models/progress_model.dart';
 import 'package:mutqin/features/student_features/data/models/session_model.dart';
@@ -24,6 +25,10 @@ abstract class ApiService {
 
   @GET(ApiEndpoints.userProfileToken)
   Future<User> getUserbyToken(@Header("Authorization") String token);
+
+   @GET(ApiEndpoints.progress)
+  Future<List<ProgressModel>> getProgress(@Path("username") String username);
+
 
   //Authentication
   @POST(ApiEndpoints.signUp)
@@ -58,6 +63,21 @@ abstract class ApiService {
   @GET(ApiEndpoints.getSessions)
   Future<List<SessionModel>> getSessions(@Path("username") String username);
 
-  @GET(ApiEndpoints.getProgress)
-  Future<List<ProgressModel>> getProgress(@Path("username") String username);
+ 
+  //Sheikh
+  @POST(ApiEndpoints.calendy)
+  Future<CalendyResponseModel> postCalendy(@Path("username") String username, @Body() CalendyModel body);
+
+  @GET(ApiEndpoints.tutorSessions)
+  Future<List<SessionModel>> getTutorSessions(@Path("username") String username);
+
+  @GET(ApiEndpoints.tutorStudents)
+  Future<List<ProfileModel>> getTutorStudents(@Path("username") String username);
+
+   @POST(ApiEndpoints.progress)
+  Future<ProgressModel> postProgress(@Path("username") String username
+  ,@Body() Map<String,dynamic> body);
+
+
+
 }

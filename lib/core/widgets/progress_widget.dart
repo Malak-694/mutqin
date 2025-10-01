@@ -151,7 +151,7 @@ class ProgressCard extends StatelessWidget {
           children: [
             Text(
               describtion,
-              style: AppTextStyles.body1.copyWith(fontSize: 25.sp),
+              style: AppTextStyles.body1.copyWith(fontSize: 20.sp),
             ),
             SizedBox(width: 30.w),
           ],

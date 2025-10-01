@@ -19,7 +19,6 @@ class AppTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 50.h,
       width: width.w,
       child: TextField(
         controller: controller,
@@ -28,6 +27,8 @@ class AppTextField extends StatelessWidget {
         maxLines: 1,
         style: AppTextStyles.headline2,
         decoration: InputDecoration(
+          contentPadding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 5.w),
+
           filled: true,
           fillColor: AppColors.secondary,
           hintText: hintText,
@@ -53,6 +54,8 @@ class AppTextField extends StatelessWidget {
             borderSide: BorderSide(color: Colors.red, width: 2.w),
           ),
         ),
+        scrollPhysics: const BouncingScrollPhysics(), // smooth scroll
+        scrollPadding: EdgeInsets.zero,
       ),
     );
   }

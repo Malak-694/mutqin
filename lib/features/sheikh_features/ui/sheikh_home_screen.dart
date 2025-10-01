@@ -1,6 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mutqin/core/constants/string.dart';
+import 'package:mutqin/core/router/route_names.dart';
+import 'package:mutqin/core/widgets/app_text_field.dart';
 import 'package:mutqin/core/widgets/persons_list.dart';
+import 'package:mutqin/features/sheikh_features/logic/cubit/sheikh_calendy_cubit.dart';
+import 'package:mutqin/features/sheikh_features/logic/cubit/sheikh_calendy_state.dart';
+import 'package:mutqin/features/sheikh_features/logic/cubit/teacher_sessions_cubit.dart';
+import 'package:mutqin/features/sheikh_features/logic/cubit/teacher_sessions_state.dart'
+    hide Loading;
+import 'package:mutqin/features/sheikh_features/logic/cubit/teacher_students_cubit.dart';
+import 'package:mutqin/features/sheikh_features/logic/cubit/teacher_students_state.dart'
+    hide Loading;
 
 import '../../../core/constants/colors.dart';
 import '../../../core/constants/text.dart';
@@ -8,80 +20,7 @@ import '../../../core/widgets/floating_nav.dart';
 import '../../../core/widgets/session_list.dart';
 
 class SheikhHomeScreen extends StatelessWidget {
-  final List<Map<String, String>> sessions = [
-    {
-      "title": "[جلسة 1] تعلم التجويد",
-      "status": "active",
-      "date": "2023-10-01",
-      "sheikhname": "احمد محمد",
-    },
-    {
-      "title": "[جلسة 2] تعلم التجويد",
-      "status": "pending",
-      "date": "2023-10-05",
-      "sheikhname": "علي حسن علي", // Changed from "sheikhId" to "sheikhname"
-    },
-    {
-      "title": "[جلسة 1] تعلم التجويد",
-      "status": "completed",
-      "date": "2023-10-01",
-      "sheikhname": "احمد محمد",
-    },
-    {
-      "title": "[جلسة 2] تعلم التجويد",
-      "status": "pending",
-      "date": "2023-10-05",
-      "sheikhname": "علي حسن علي", // Changed from "sheikhId" to "sheikhname"
-    },
-    {
-      "title": "[جلسة 1] تعلم التجويد",
-      "status": "completed",
-      "date": "2023-10-01",
-      "sheikhname": "احمد محمد",
-    },
-    {
-      "title": "[جلسة 2] تعلم التجويد",
-      "status": "pending",
-      "date": "2023-10-05",
-      "sheikhname": "علي حسن علي", // Changed from "sheikhId" to "sheikhname"
-    },
-    {
-      "title": "[جلسة 1] تعلم التجويد",
-      "status": "completed",
-      "date": "2023-10-01",
-      "sheikhname": "احمد محمد",
-    },
-    {
-      "title": "[جلسة 2] تعلم التجويد",
-      "status": "pending",
-      "date": "2023-10-05",
-      "sheikhname": "علي حسن علي", // Changed from "sheikhId" to "sheikhname"
-    },
-    {
-      "title": "[جلسة 1] تعلم التجويد",
-      "status": "completed",
-      "date": "2023-10-01",
-      "sheikhname": "احمد محمد",
-    },
-    {
-      "title": "[جلسة 2] تعلم التجويد",
-      "status": "pending",
-      "date": "2023-10-05",
-      "sheikhname": "علي حسن علي", // Changed from "sheikhId" to "sheikhname"
-    },
-  ];
-  List<Map<String, String>> persons = [
-    {"name": "ملك احمد محمد", "detail": "درس 10 طلاب"},
-    {"name": "ملك احمد محمد", "detail": "درس 10 طلاب"},
-    {"name": "ملك احمد محمد", "detail": "درس 10 طلاب"},
-    {"name": "ملك احمد محمد", "detail": "درس 10 طلاب"},
-    {"name": "ملك احمد محمد", "detail": "درس 10 طلاب"},
-    {"name": "ملك احمد محمد", "detail": "درس 10 طلاب"},
-    {"name": "ملك احمد محمد", "detail": "درس 10 طلاب"},
-    {"name": "ملك احمد محمد", "detail": "درس 10 طلاب"},
-    {"name": "ملك احمد محمد", "detail": "درس 10 طلاب"},
-  ];
-  final VoidCallback onPressed = () {};
+  TextEditingController link = TextEditingController();
 
   SheikhHomeScreen({super.key});
 
@@ -99,8 +38,115 @@ class SheikhHomeScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            //SessionList(sessions: sessions, height: 355),
-          //  PersonsList(persons: persons, onPressed: onPressed, height: 355),
+            BlocBuilder<SheikhSessionsCubit, SheikhSessionsState>(
+              builder: (context, state) {
+                return state.when(
+                  initial: () => Center(
+                    child: Text(
+                      'توجد مشكلة بالبدء',
+                      style: AppTextStyles.headline2,
+                    ),
+                  ),
+                  loading: () => const Center(
+                    child: CircularProgressIndicator(color: AppColors.primery),
+                  ),
+                  success: (sessions) =>
+                      SessionList(sessions: sessions, height: 320),
+                  fail: (error) => Center(
+                    child: Text(error, style: AppTextStyles.headline2),
+                  ),
+                );
+              },
+            ),
+            BlocConsumer<SheikhCalendyCubit, SheikhCalendyState>(
+              listener: (context, state) {
+                state.whenOrNull(
+                  success: (msg) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          msg,
+                          style: AppTextStyles.body1,
+                          textAlign: TextAlign.end,
+                        ),
+                        backgroundColor: AppColors.darkprimery,
+                      ),
+                    );
+                  },
+                  fail: (msg) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          msg,
+                          style: AppTextStyles.body1,
+                          textAlign: TextAlign.end,
+                        ),
+                        backgroundColor: AppColors.darkprimery,
+                      ),
+                    );
+                  },
+                );
+              },
+              builder: (context, state) {
+                return Row(
+                  children: [
+                    state is Loading
+                        ? const CircularProgressIndicator(
+                            color: AppColors.primery,
+                          )
+                        : IconButton(
+                            onPressed: () {
+                              context.read<SheikhCalendyCubit>().postCalendy(
+                                link.text,
+                              );
+                              link.clear();
+                            },
+                            icon: Icon(
+                              Icons.send,
+                              color: AppColors.lightprimery,
+                            ),
+                          ),
+                    AppTextField(
+                      width: 300,
+                      controller: link,
+                      hintText: AppStrings.addCalendyLink,
+                    ),
+                  ],
+                );
+              },
+            ),
+            BlocBuilder<SheikhStudentsCubit, SheikhStudentsState>(
+              builder: (context, state) {
+                return state.when(
+                  initial: () => Center(
+                    child: Text(
+                      'توجد مشكلة بالبدء',
+                      style: AppTextStyles.headline2,
+                    ),
+                  ),
+                  loading: () => const Center(
+                    child: CircularProgressIndicator(color: AppColors.primery),
+                  ),
+                  success: (persons) {
+                    return PersonsList(
+                      student: false,
+                      persons: persons,
+                      onPressed: (username) {
+                        Navigator.pushNamed(
+                          context,
+                          RouteNames.studentProgress,
+                          arguments: username,
+                        );
+                      },
+                      height: 325,
+                    );
+                  },
+                  fail: (error) => Center(
+                    child: Text(error, style: AppTextStyles.headline2),
+                  ),
+                );
+              },
+            ),
           ],
         ),
       ),

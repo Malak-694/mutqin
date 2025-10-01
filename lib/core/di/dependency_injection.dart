@@ -8,11 +8,16 @@ import 'package:mutqin/features/notification/data/repo/notification_repo.dart';
 import 'package:mutqin/features/notification/logic/cubit/notification_cubit.dart';
 import 'package:mutqin/features/profile/data/repo/profile_repo.dart';
 import 'package:mutqin/features/profile/logic/cubit/profile_cubit.dart';
+import 'package:mutqin/features/sheikh_features/data/repo/sheikh_repo.dart';
+import 'package:mutqin/features/sheikh_features/logic/cubit/sheikh_calendy_cubit.dart';
+import 'package:mutqin/features/sheikh_features/logic/cubit/teacher_sessions_cubit.dart';
+import 'package:mutqin/features/sheikh_features/logic/cubit/teacher_student_progress_cubit.dart';
 import 'package:mutqin/features/student_features/logic/cubit/book_cubit.dart';
 import 'package:mutqin/features/student_features/logic/cubit/progress_cubit.dart';
 import 'package:mutqin/features/student_features/logic/cubit/sessions_cubit.dart';
 import 'package:mutqin/features/student_features/logic/cubit/tutors_cubit.dart';
 
+import '../../features/sheikh_features/logic/cubit/teacher_students_cubit.dart';
 import '../../features/student_features/data/repo/student_repo.dart';
 import '../helper/shared_pref_helper.dart';
 
@@ -44,4 +49,20 @@ Future<void> setupGetIt() async {
   getIt.registerLazySingleton<BookCubit>(() => BookCubit(getIt()));
   getIt.registerLazySingleton<TutorsCubit>(() => TutorsCubit(getIt()));
   getIt.registerLazySingleton<ProgressCubit>(() => ProgressCubit(getIt()));
+
+  getIt.registerLazySingleton<SheikhRepo>(
+    () => SheikhRepo(apiService: getIt()),
+  );
+  getIt.registerLazySingleton<SheikhStudentProgressCubit>(
+    () => SheikhStudentProgressCubit(getIt()),
+  );
+  getIt.registerLazySingleton<SheikhSessionsCubit>(
+    () => SheikhSessionsCubit(getIt()),
+  );
+  getIt.registerLazySingleton<SheikhStudentsCubit>(
+    () => SheikhStudentsCubit(getIt()),
+  );
+  getIt.registerLazySingleton<SheikhCalendyCubit>(
+    () => SheikhCalendyCubit(getIt()),
+  );
 }

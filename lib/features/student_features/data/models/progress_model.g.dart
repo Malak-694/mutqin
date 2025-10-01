@@ -11,7 +11,7 @@ ProgressModel _$ProgressModelFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String?,
       user: json['user'] == null
           ? null
-          : User.fromJson(json['user'] as Map<String, dynamic>),
+          : ProgressUser.fromJson(json['user'] as Map<String, dynamic>),
       points: json['points'] as String?,
       memorizationLevel: json['memorizationLevel'] as String?,
       newLearnedPages: json['newLearnedPages'] as String?,

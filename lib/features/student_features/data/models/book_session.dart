@@ -1,4 +1,4 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 part 'book_session.g.dart';
 @JsonSerializable()
 class BookRequestModel {

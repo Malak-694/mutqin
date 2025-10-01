@@ -1,4 +1,4 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 part 'sign_up_model.g.dart';
 @JsonSerializable()
 class SignUpRequest {

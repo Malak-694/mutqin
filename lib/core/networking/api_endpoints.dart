@@ -5,6 +5,8 @@ class ApiEndpoints {
   //General
 
   static const String getByRole = '/api/profile/roles?role={role}';
+    static const String progress = '/api/tutor/progress/{username}';
+
 
   //Authentication
   static const String signUp = '/api/auth/signup';
@@ -26,5 +28,11 @@ class ApiEndpoints {
   static const String getSessions = '/students/student/{username}';
   static const String revision =
       'https://mahmoudgomaa8545-tasmee3-mutqin.hf.space/';
-  static const String getProgress = '/api/tutor/progress/{username}';
+
+  //Shiekh
+  static const String calendy =
+      '/api/tutor/progress/event-type-link/{username}';
+  static const String tutorSessions = '/students/sheikh/{username}';
+  static const String tutorStudents =
+      '/api/tutor/progress/sheikhs/{username}/students';
 }

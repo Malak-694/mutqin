@@ -24,12 +24,14 @@ class AppStrings {
   static const enter = "دخول ";
   static const details = "تفاصيل";
   static const note = "ملاحظة";
-  static const sendReport = "ارسال تقرير لولي الامر";
+  static const sendReport = "ارسال تقرير";
   static const add = " اضافة";
+  static const session = 'جلسة';
   static const pages = " عدد الصفح";
   static const points = " النقاط";
   static const trophy = " الجوائز";
   static const reports = "التقارير";
   static const addSon = "اضاقةابن/ة";
   static const studenUsername = "اسم المستخدم للطالب";
+  static const addCalendyLink = "اضف رابط كالندي";
 }

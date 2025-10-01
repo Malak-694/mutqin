@@ -41,20 +41,16 @@ class SessionCard extends StatelessWidget {
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(session.sheikhUsername!, style: AppTextStyles.headline1),
-                ],
+              Text(
+                session.sheikhUsername!,
+                style: AppTextStyles.headline1.copyWith(fontSize: 18.sp),
               ),
               Column(
+                mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
-                    formatArabicDate(session.date!),
-                    style: AppTextStyles.body2.copyWith(fontSize: 18.sp),
-                  ),
                   session.status == "active"
                       ? ElevatedButton(
                           style: ElevatedButton.styleFrom(
@@ -104,10 +100,18 @@ class SessionCard extends StatelessWidget {
                             //   ),
                             // ),
                             // SizedBox(width: 5.w),
-                            Text("قـادمـــة", style: AppTextStyles.body1),
+                            Text(
+                              "قـادمـــة",
+                              style: AppTextStyles.body1,
+                              textAlign: TextAlign.end,
+                            ),
                           ],
                         )
                       : Text("مكــتملة", style: AppTextStyles.headline2),
+                  Text(
+                    formatArabicDate(session.date!),
+                    style: AppTextStyles.body2.copyWith(fontSize: 18.sp),
+                  ),
                 ],
               ),
             ],

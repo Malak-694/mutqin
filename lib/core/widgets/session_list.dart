@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mutqin/core/constants/text.dart';
 import 'package:mutqin/features/student_features/data/models/session_model.dart';
 
 import 'session_card.dart';
@@ -42,7 +43,14 @@ class SessionList extends StatelessWidget {
               ),
             ],
           ),
-          child: SessionCard(sessions: sessions),
+          child: sessions.isEmpty
+              ? Center(
+                  child: Text(
+                    'ابدأ بحجز جلسة الآن',
+                    style: AppTextStyles.headline2,
+                  ),
+                )
+              : SessionCard(sessions: sessions),
         ),
       ],
     );
